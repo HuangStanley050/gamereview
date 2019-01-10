@@ -13,7 +13,6 @@ const NavBar = props => {
           <li classNameclassName="logged-in">
             <a
               onClick={() => props.toggle("account")}
-              href="#"
               className="white-text modal-trigger"
               data-target="modal-account"
             >

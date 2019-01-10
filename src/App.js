@@ -10,6 +10,7 @@ class App extends Component {
       <div className="App">
         <NavBar />
         <Modal />
+        <h1>Review Component</h1>
       </div>
     );
   }
