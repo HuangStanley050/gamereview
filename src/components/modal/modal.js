@@ -3,9 +3,13 @@ import "./modal.css";
 import { connect } from "react-redux";
 
 const Modal = props => {
-  console.log(props);
+  //console.log(props);
   const createReview = (
-    <div id="modal-create" className="modal">
+    <div
+      id="modal-create"
+      className="modal"
+      style={props.show.showModal ? { display: "block" } : null}
+    >
       <div className="modal-content">
         <h4>Create Review</h4>
         <br />
@@ -24,7 +28,11 @@ const Modal = props => {
     </div>
   );
   const accountDetail = (
-    <div id="modal-account" className="modal">
+    <div
+      id="modal-account"
+      className="modal"
+      style={props.show.showModal ? { display: "block" } : null}
+    >
       <div className="modal-content center-align">
         <h4>Account details</h4>
         <br />
@@ -34,7 +42,11 @@ const Modal = props => {
     </div>
   );
   const login = (
-    <div id="modal-login" className="modal">
+    <div
+      id="modal-login"
+      className="modal"
+      style={props.show.showModal ? { display: "block" } : null}
+    >
       <div className="modal-content">
         <h4>Login</h4>
         <br />
@@ -75,12 +87,30 @@ const Modal = props => {
       </div>
     </div>
   );
-  return signUp;
+  let modal = null;
+  switch (props.type) {
+    case "login":
+      modal = login;
+      break;
+    case "account":
+      modal = accountDetail;
+      break;
+    case "sign up":
+      modal = signUp;
+      break;
+    case "create":
+      modal = createReview;
+      break;
+    default:
+      break;
+  }
+  return modal;
 };
 
 const mapStateToProps = state => {
   return {
-    show: state.modal
+    show: state.modal,
+    type: state.modal.type
   };
 };
 

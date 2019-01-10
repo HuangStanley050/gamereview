@@ -1,6 +1,7 @@
 import * as actionTypes from "../actions/actionTypes";
 const initialState = {
-  showModal: false
+  showModal: false,
+  type: ""
 };
 
 const reducer = (state = initialState, action) => {
@@ -8,8 +9,10 @@ const reducer = (state = initialState, action) => {
     case actionTypes.TOGGLE_MODAL:
       return {
         ...state,
+        type: action.payload,
         showModal: !state.showModal
       };
+
     default:
       return state;
   }
