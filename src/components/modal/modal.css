@@ -1,0 +1,21 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    min-height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    /*display: block;*/
+}
+
+.modal .modal-content {
+
+    position: fixed;
+    background: white;
+    width: 80%;
+    height: auto;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
