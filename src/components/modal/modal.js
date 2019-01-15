@@ -2,15 +2,38 @@ import React, { Component } from "react";
 import "./modal.css";
 import { connect } from "react-redux";
 import { toggle_modal } from "../../store/actions/modalActions";
+import { auth_create_user } from "../../store/actions/authActions";
 
 class Modal extends Component {
+  // componentDidMount() {
+  //   const node = React.findDOMNode(this.refs.modal);
+
+  //   node.addEventListener("submit", alert("hi"));
+  // }
+  state = {
+    email: "",
+    password: ""
+  };
+
   handleClick = e => {
-    if (this.modal.contains(e.target)) {
-      alert("click on inside");
-    } else {
-      this.props.toggle();
+    //const submit = document.getElementById("submit-button");
+
+    if (!this.modal.contains(e.target)) {
+      this.setState({ email: "", password: "" });
+      return this.props.toggle(); //outside the modal
     }
   };
+
+  handleInput = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+
+    this.props.create(this.state.email, this.state.password);
+  };
+
   render() {
     const createReview = (
       <div
@@ -70,7 +93,7 @@ class Modal extends Component {
           <br />
           <form id="login-form">
             <div className="input-field">
-              <input type="email" id="login-email" required />
+              <input name="email" type="email" id="login-email" required />
               <label for="login-email">Email address</label>
             </div>
             <div className="input-field">
@@ -92,16 +115,34 @@ class Modal extends Component {
         <div className="modal-content" ref={node => (this.modal = node)}>
           <h4>Sign up</h4>
           <br />
-          <form id="signup-form">
+          <form onSubmit={this.handleSubmit} id="signup-form">
             <div className="input-field">
-              <input type="email" id="signup-email" required />
-              <label for="signup-email">Email address</label>
+              <input
+                value={this.state.email}
+                name="email"
+                type="email"
+                id="signup-email"
+                onChange={this.handleInput}
+              />
+              <label htmlFor="signup-email">Email address</label>
             </div>
             <div className="input-field">
-              <input type="password" id="signup-password" required />
-              <label for="signup-password">Choose password</label>
+              <input
+                value={this.state.password}
+                name="password"
+                type="password"
+                id="signup-password"
+                onChange={this.handleInput}
+              />
+              <label htmlFor="signup-password">Choose password</label>
             </div>
-            <button className="btn yellow darken-2 z-depth-0">Sign up</button>
+            <button
+              id="submit-button"
+              type="submit"
+              className="btn yellow darken-2 z-depth-0"
+            >
+              Sign up
+            </button>
           </form>
         </div>
       </div>
@@ -138,7 +179,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    toggle: () => dispatch(toggle_modal())
+    toggle: () => dispatch(toggle_modal()),
+    create: (email, password) => dispatch(auth_create_user(email, password))
   };
 };
 

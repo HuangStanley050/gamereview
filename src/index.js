@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import modalReducer from "./store/reducers/modalReducer";
+import authReducer from "./store/reducers/authReducer";
 import App from "./App";
 
 const composeEnhancers =
@@ -13,7 +14,8 @@ const composeEnhancers =
     : null || compose;
 
 const rootReducer = combineReducers({
-  modal: modalReducer
+  modal: modalReducer,
+  auth: authReducer
 });
 
 const store = createStore(

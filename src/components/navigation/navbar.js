@@ -1,6 +1,7 @@
 import React from "react";
 import { toggle_modal } from "../../store/actions/modalActions";
 import { connect } from "react-redux";
+import "./navbar.css";
 
 const NavBar = props => {
   return (
@@ -10,50 +11,50 @@ const NavBar = props => {
           <h5>Game Review</h5>
         </a>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
-          <li classNameclassName="logged-in">
-            <a
+          <li className="logged-in">
+            <button
               onClick={() => props.toggle("account")}
-              className="white-text modal-trigger"
+              className="white-text btn "
               data-target="modal-account"
             >
               Account
-            </a>
+            </button>
           </li>
           <li className="logged-in">
-            <a
+            <button
               onClick={() => props.toggle("logout")}
-              className="white-text"
+              className="white-text btn"
               id="logout"
             >
               Logout
-            </a>
+            </button>
           </li>
           <li className="logged-in">
-            <a
+            <button
               onClick={() => props.toggle("create")}
-              className="white-text modal-trigger"
+              className="white-text btn"
               data-target="modal-create"
             >
               Create Review
-            </a>
+            </button>
           </li>
           <li className="logged-out">
-            <a
+            <button
               onClick={() => props.toggle("login")}
-              className="white-text modal-trigger"
+              className="white-text btn"
               data-target="modal-login"
             >
               Login
-            </a>
+            </button>
           </li>
           <li className="logged-out">
-            <a
+            <button
               onClick={() => props.toggle("sign up")}
-              className="white-text modal-trigger"
+              className="white-text btn"
               data-target="modal-signup"
             >
               Sign up
-            </a>
+            </button>
           </li>
         </ul>
       </div>
