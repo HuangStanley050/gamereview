@@ -2,14 +2,9 @@ import React, { Component } from "react";
 import "./modal.css";
 import { connect } from "react-redux";
 import { toggle_modal } from "../../store/actions/modalActions";
-import { auth_create_user } from "../../store/actions/authActions";
+import { auth_create_user, auth_login } from "../../store/actions/authActions";
 
 class Modal extends Component {
-  // componentDidMount() {
-  //   const node = React.findDOMNode(this.refs.modal);
-
-  //   node.addEventListener("submit", alert("hi"));
-  // }
   state = {
     email: "",
     password: ""
@@ -30,8 +25,18 @@ class Modal extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-
-    this.props.create(this.state.email, this.state.password);
+    //handle multiple different submit id
+    switch (e.target.id) {
+      case "login-form":
+        alert("login form");
+        break;
+      case "signup-form":
+        this.props.create(this.state.email, this.state.password);
+        this.setState({ email: "", password: "" });
+        break;
+      default:
+        break;
+    }
   };
 
   render() {
@@ -91,16 +96,18 @@ class Modal extends Component {
         <div className="modal-content" ref={node => (this.modal = node)}>
           <h4>Login</h4>
           <br />
-          <form id="login-form">
+          <form onSubmit={this.handleSubmit} id="login-form">
             <div className="input-field">
-              <input name="email" type="email" id="login-email" required />
+              <input name="email" type="email" id="login-email" />
               <label for="login-email">Email address</label>
             </div>
             <div className="input-field">
-              <input type="password" id="login-password" required />
+              <input type="password" id="login-password" />
               <label for="login-password">Your password</label>
             </div>
-            <button className="btn yellow darken-2 z-depth-0">Login</button>
+            <button type="submit" className="btn yellow darken-2 z-depth-0">
+              Login
+            </button>
           </form>
         </div>
       </div>
@@ -173,14 +180,16 @@ class Modal extends Component {
 const mapStateToProps = state => {
   return {
     show: state.modal,
-    type: state.modal.type
+    type: state.modal.type,
+    isAuthenticated: state.auth
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     toggle: () => dispatch(toggle_modal()),
-    create: (email, password) => dispatch(auth_create_user(email, password))
+    create: (email, password) => dispatch(auth_create_user(email, password)),
+    login: (email, password) => dispatch(auth_login(email, password))
   };
 };
 

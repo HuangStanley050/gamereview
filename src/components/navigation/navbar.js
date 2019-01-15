@@ -1,6 +1,7 @@
 import React from "react";
 import { toggle_modal } from "../../store/actions/modalActions";
 import { connect } from "react-redux";
+import { auth_logout } from "../../store/actions/authActions";
 import "./navbar.css";
 
 const NavBar = props => {
@@ -22,7 +23,7 @@ const NavBar = props => {
           </li>
           <li className="logged-in">
             <button
-              onClick={() => props.toggle("logout")}
+              onClick={() => props.logout()}
               className="white-text btn"
               id="logout"
             >
@@ -64,7 +65,8 @@ const NavBar = props => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    toggle: mType => dispatch(toggle_modal(mType))
+    toggle: mType => dispatch(toggle_modal(mType)),
+    logout: () => dispatch(auth_logout())
   };
 };
 export default connect(
