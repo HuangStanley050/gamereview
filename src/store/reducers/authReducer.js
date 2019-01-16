@@ -12,15 +12,23 @@ const reducer = (state = initialState, action) => {
     //using the fallthrough case techniques
     case actionTypes.CREATE_USER_START:
     case actionTypes.LOGOUT_START:
+    case actionTypes.LOGIN_START:
       return {
         ...state,
         loading: true
       };
+    case actionTypes.LOGIN_FAIL:
     case actionTypes.CREATE_USER_FAIL:
     case actionTypes.LOGOUT_FAIL:
       return {
         ...state,
         loading: false
+      };
+    case actionTypes.LOGIN_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isLogin: true
       };
     case actionTypes.CREATE_USER_SUCCESS:
       return {

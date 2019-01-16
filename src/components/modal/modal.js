@@ -28,7 +28,9 @@ class Modal extends Component {
     //handle multiple different submit id
     switch (e.target.id) {
       case "login-form":
-        alert("login form");
+        //console.log(this.state);
+        this.props.login(this.state.email, this.state.password);
+        this.setState({ email: "", password: "" });
         break;
       case "signup-form":
         this.props.create(this.state.email, this.state.password);
@@ -98,11 +100,23 @@ class Modal extends Component {
           <br />
           <form onSubmit={this.handleSubmit} id="login-form">
             <div className="input-field">
-              <input name="email" type="email" id="login-email" />
+              <input
+                value={this.state.email}
+                onChange={this.handleInput}
+                name="email"
+                type="email"
+                id="login-email"
+              />
               <label for="login-email">Email address</label>
             </div>
             <div className="input-field">
-              <input type="password" id="login-password" />
+              <input
+                value={this.state.password}
+                onChange={this.handleInput}
+                name="password"
+                type="password"
+                id="login-password"
+              />
               <label for="login-password">Your password</label>
             </div>
             <button type="submit" className="btn yellow darken-2 z-depth-0">

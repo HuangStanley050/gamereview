@@ -43,7 +43,14 @@ export const auth_login = (email, password) => {
     dispatch({ type: actionTypes.LOGIN_START });
     auth
       .signInWithEmailAndPassword(email, password)
-      .then()
-      .catch();
+      .then(res => {
+        console.log(res.user);
+        dispatch(toggle_modal());
+        dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: res.user.uid });
+      })
+      .catch(err => {
+        dispatch({ type: actionTypes.LOGIN_FAIL });
+        console.log(err);
+      });
   };
 };
