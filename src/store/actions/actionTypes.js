@@ -11,3 +11,7 @@ export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGIN_START = "LOGIN_START";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+
+export const FETCH_START = "FETCH_START";
+export const FETCH_FAIL = "FETCH_FAIL";
+export const FETCH_SUCCESS = "FETCH_SUCCESS";

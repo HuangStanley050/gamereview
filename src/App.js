@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import NavBar from "./components/navigation/navbar";
 import Modal from "./components/modal/modal";
+import Reviews from "./components/reviews/reviews";
+import { connect } from "react-redux";
 import "./App.css";
 
 class App extends Component {
@@ -10,10 +12,16 @@ class App extends Component {
       <div className="App">
         <NavBar />
         <Modal />
-        <h1>Review Component</h1>
+        <Reviews />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    loginStatus: state.auth
+  };
+};
+
+export default connect(mapStateToProps)(App);

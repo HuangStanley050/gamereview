@@ -44,7 +44,7 @@ export const auth_login = (email, password) => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(res => {
-        console.log(res.user);
+        //console.log(res.user);
         dispatch(toggle_modal());
         dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: res.user.uid });
       })
