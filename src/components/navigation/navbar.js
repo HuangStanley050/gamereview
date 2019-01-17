@@ -8,7 +8,7 @@ const NavBar = props => {
   return (
     <nav className="z-depth-0 blue lighten-2">
       <div className="nav-wrapper container">
-        <a className="brand-logo">
+        <a href className="brand-logo">
           <h5>Game Review</h5>
         </a>
         <ul id="nav-mobile" className="right hide-on-med-and-down">

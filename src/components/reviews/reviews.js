@@ -14,18 +14,33 @@ class Reviews extends Component {
     this.props.get_reviews();
   }
   render() {
+    let reviews;
+    if (this.props.reviews.loading) {
+      reviews = <h1 className="red-text center-align">Loading...</h1>;
+    } else {
+      reviews = this.props.reviews.reviews.map(review => {
+        return (
+          <Accordion>
+            <AccordionItem>
+              <AccordionItemTitle>
+                <h4>{review.title}</h4>
+              </AccordionItemTitle>
+              <AccordionItemBody>
+                <p>{review.content}</p>
+              </AccordionItemBody>
+            </AccordionItem>
+          </Accordion>
+        );
+      });
+    }
+    console.log(this.props.auth);
     return (
       <div className="container" style={{ marginTop: "40px" }}>
-        <Accordion>
-          <AccordionItem>
-            <AccordionItemTitle>
-              <h3>Simple title</h3>
-            </AccordionItemTitle>
-            <AccordionItemBody>
-              <p>Body content</p>
-            </AccordionItemBody>
-          </AccordionItem>
-        </Accordion>
+        {this.props.auth.isLogin ? (
+          reviews
+        ) : (
+          <h1 className="center-align">You have not login</h1>
+        )}
       </div>
     );
   }
@@ -39,6 +54,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
+    auth: state.auth,
     reviews: state.review
   };
 };
