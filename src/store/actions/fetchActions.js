@@ -9,8 +9,19 @@ export const fetch_reviews = () => {
     db.collection("reviews")
       .get()
       .then(snapshot => {
-        console.log(snapshot.docs);
+        let review;
+        let reviews = [];
+        snapshot.forEach(snapshot => {
+          //console.log(snapshot.id, " => ", snapshot.data());
+          review = snapshot.data();
+          reviews.push(review);
+        });
+        //console.log(reviews);
+        dispatch({ type: actionTypes.FETCH_SUCCESS, payload: reviews });
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+        dispatch({ type: actionTypes.FETCH_FAIL });
+      });
   };
 };

@@ -6,6 +6,7 @@
     "axios": "^0.18.0",
     "firebase": "^5.7.2",
     "react": "^16.7.0",
+    "react-accessible-accordion": "^2.4.5",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
     "react-scripts": "2.1.3",
