@@ -17,8 +17,10 @@ export const auth_create_user = (email, password) => {
         dispatch({ type: actionTypes.CREATE_USER_SUCCESS });
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.message);
+        dispatch({ type: actionTypes.ERROR, payload: err.message });
         dispatch({ type: actionTypes.CREATE_USER_FAIL });
+        dispatch({ type: actionTypes.ERROR_CLEAR });
       });
   };
 };
@@ -32,7 +34,8 @@ export const auth_logout = () => {
         dispatch({ type: actionTypes.LOGOUT_SUCCESS });
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.message);
+        dispatch({ type: actionTypes.ERROR, payload: err.message });
         dispatch({ type: actionTypes.LOGOUT_FAIL });
       });
   };
@@ -47,10 +50,12 @@ export const auth_login = (email, password) => {
         //console.log(res.user);
         dispatch(toggle_modal());
         dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: res.user.uid });
+        dispatch({ type: actionTypes.ERROR_CLEAR });
       })
       .catch(err => {
         dispatch({ type: actionTypes.LOGIN_FAIL });
-        console.log(err);
+        dispatch({ type: actionTypes.ERROR, payload: err.message });
+        console.log(err.message);
       });
   };
 };

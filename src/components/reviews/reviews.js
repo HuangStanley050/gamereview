@@ -20,7 +20,7 @@ class Reviews extends Component {
     } else {
       reviews = this.props.reviews.reviews.map(review => {
         return (
-          <Accordion>
+          <Accordion key={review.id}>
             <AccordionItem>
               <AccordionItemTitle>
                 <h4>{review.title}</h4>
@@ -33,7 +33,7 @@ class Reviews extends Component {
         );
       });
     }
-    console.log(this.props.auth);
+
     return (
       <div className="container" style={{ marginTop: "40px" }}>
         {this.props.auth.isLogin ? (

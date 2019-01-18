@@ -123,6 +123,10 @@ class Modal extends Component {
               Login
             </button>
           </form>
+          <br />
+          <div>
+            <h4 className="red-text center-align">{this.props.error.error}</h4>
+          </div>
         </div>
       </div>
     );
@@ -165,6 +169,10 @@ class Modal extends Component {
               Sign up
             </button>
           </form>
+          <br />
+          <div>
+            <h4 className="red-text center-align">{this.props.error.error}</h4>
+          </div>
         </div>
       </div>
     );
@@ -195,7 +203,8 @@ const mapStateToProps = state => {
   return {
     show: state.modal,
     type: state.modal.type,
-    isAuthenticated: state.auth
+    isAuthenticated: state.auth,
+    error: state.error
   };
 };
 

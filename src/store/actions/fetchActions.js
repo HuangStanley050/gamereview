@@ -14,6 +14,7 @@ export const fetch_reviews = () => {
         snapshot.forEach(snapshot => {
           //console.log(snapshot.id, " => ", snapshot.data());
           review = snapshot.data();
+          review.id = snapshot.id;
           reviews.push(review);
         });
         //console.log(reviews);

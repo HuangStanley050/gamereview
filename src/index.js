@@ -7,6 +7,7 @@ import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import modalReducer from "./store/reducers/modalReducer";
 import authReducer from "./store/reducers/authReducer";
 import reviewReducer from "./store/reducers/reviewReducer";
+import errorReducer from "./store/reducers/errorReducer";
 import App from "./App";
 
 const composeEnhancers =
@@ -17,7 +18,8 @@ const composeEnhancers =
 const rootReducer = combineReducers({
   modal: modalReducer,
   auth: authReducer,
-  review: reviewReducer
+  review: reviewReducer,
+  error: errorReducer
 });
 
 const store = createStore(
