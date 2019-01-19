@@ -3,18 +3,21 @@ import "./modal.css";
 import { connect } from "react-redux";
 import { toggle_modal } from "../../store/actions/modalActions";
 import { auth_create_user, auth_login } from "../../store/actions/authActions";
+import { createReview } from "../../store/actions/createActions";
 
 class Modal extends Component {
   state = {
     email: "",
-    password: ""
+    password: "",
+    title: "",
+    content: ""
   };
 
   handleClick = e => {
     //const submit = document.getElementById("submit-button");
 
     if (!this.modal.contains(e.target)) {
-      this.setState({ email: "", password: "" });
+      this.setState({ email: "", password: "", title: "", content: "" });
       return this.props.toggle(); //outside the modal
     }
   };
@@ -36,6 +39,11 @@ class Modal extends Component {
         this.props.create(this.state.email, this.state.password);
         this.setState({ email: "", password: "" });
         break;
+      case "create-form":
+        //alert("title is" + " " + this.state.title);
+        this.props.create_review(this.state.title, this.state.content);
+        this.setState({ title: "", content: "" });
+        break;
       default:
         break;
     }
@@ -52,20 +60,32 @@ class Modal extends Component {
         <div ref={node => (this.modal = node)} className="modal-content">
           <h4>Create Review</h4>
           <br />
-          <form id="create-form">
+          <form onSubmit={this.handleSubmit} id="create-form">
             <div className="input-field">
-              <input type="text" id="title" required />
+              <input
+                value={this.state.title}
+                onChange={this.handleInput}
+                type="text"
+                id="title"
+                name="title"
+                required
+              />
               <label for="title">Guide Title</label>
             </div>
             <div className="input-field">
               <textarea
+                value={this.state.content}
+                name="content"
                 id="content"
+                onChange={this.handleInput}
                 className="materialize-textarea"
                 required
               />
               <label for="content">Guide Content</label>
             </div>
-            <button className="btn yellow darken-2 z-depth-0">Create</button>
+            <button type="submit" className="btn yellow darken-2 z-depth-0">
+              Create
+            </button>
           </form>
         </div>
       </div>
@@ -212,7 +232,8 @@ const mapDispatchToProps = dispatch => {
   return {
     toggle: () => dispatch(toggle_modal()),
     create: (email, password) => dispatch(auth_create_user(email, password)),
-    login: (email, password) => dispatch(auth_login(email, password))
+    login: (email, password) => dispatch(auth_login(email, password)),
+    create_review: (title, content) => dispatch(createReview(title, content))
   };
 };
 

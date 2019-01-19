@@ -23,6 +23,17 @@ const reducer = (state = initialState, action) => {
         loading: false,
         reviews: [...action.payload]
       };
+    case actionTypes.CREATE_REVIEW_START:
+      return {
+        ...state,
+        loading: true
+      };
+    case actionTypes.CREATE_REVIEW_FAIL:
+    case actionTypes.CREATE_REVIEW_SUCCESS:
+      return {
+        ...state,
+        loading: false
+      };
     default:
       return state;
   }
