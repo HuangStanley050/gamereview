@@ -103,7 +103,14 @@ class Modal extends Component {
         >
           <h4>Account details</h4>
           <br />
-          <div className="account-details" />
+          <div className="account-details">
+            <h3>
+              Log in as{" "}
+              <span style={{ color: "red" }}>
+                {this.props.accountInfo.email}
+              </span>
+            </h3>
+          </div>
           <div className="account-extras" />
         </div>
       </div>
@@ -224,6 +231,7 @@ const mapStateToProps = state => {
     show: state.modal,
     type: state.modal.type,
     isAuthenticated: state.auth,
+    accountInfo: state.auth.accountInfo,
     error: state.error
   };
 };

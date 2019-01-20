@@ -4,7 +4,6 @@ import * as actionTypes from "./actionTypes";
 import { toggle_modal } from "./modalActions";
 
 const auth = fb.auth();
-const db = fb.firestore();
 
 export const auth_create_user = (email, password) => {
   return dispatch => {
@@ -47,10 +46,9 @@ export const auth_login = (email, password) => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(res => {
-        //console.log(res.user);
+        console.log(res.user.email);
         dispatch(toggle_modal());
-        dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: res.user.uid });
-
+        dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: res.user.email });
         dispatch({ type: actionTypes.ERROR_CLEAR });
       })
       .catch(err => {

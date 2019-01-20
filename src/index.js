@@ -2,12 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import { Provider } from "react-redux";
+
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+
 import modalReducer from "./store/reducers/modalReducer";
 import authReducer from "./store/reducers/authReducer";
 import reviewReducer from "./store/reducers/reviewReducer";
 import errorReducer from "./store/reducers/errorReducer";
+
 import App from "./App";
 
 const composeEnhancers =
@@ -18,8 +21,8 @@ const composeEnhancers =
 const rootReducer = combineReducers({
   modal: modalReducer,
   auth: authReducer,
-  review: reviewReducer,
-  error: errorReducer
+  error: errorReducer,
+  reviews: reviewReducer
 });
 
 const store = createStore(
@@ -34,7 +37,3 @@ const app = (
 );
 
 ReactDOM.render(app, document.getElementById("root"));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA

@@ -2,7 +2,8 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
   reviews: [],
-  loading: false
+  loading: false,
+  fetchAgain: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -22,14 +23,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        reviews: [...action.payload]
+        reviews: [...action.payload],
+        fetchAgain: false
       };
 
     case actionTypes.CREATE_REVIEW_FAIL:
     case actionTypes.CREATE_REVIEW_SUCCESS:
       return {
         ...state,
-        loading: false
+        loading: false,
+        fetchAgain: true
       };
     default:
       return state;

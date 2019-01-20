@@ -3,6 +3,9 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   isRegistered: false,
   isLogin: false,
+  accountInfo: {
+    email: ""
+  },
   token: null,
   loading: false
 };
@@ -28,7 +31,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        isLogin: true
+        isLogin: true,
+        accountInfo: { ...state.accountInfo, email: action.payload }
       };
     case actionTypes.CREATE_USER_SUCCESS:
       return {
@@ -43,7 +47,8 @@ const reducer = (state = initialState, action) => {
         isLogin: false,
         token: null,
         loading: false,
-        isRegistered: false
+        isRegistered: false,
+        accountInfo: { ...state.accountInfo, email: "" }
       };
     default:
       return state;
