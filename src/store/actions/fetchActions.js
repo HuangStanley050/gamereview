@@ -21,7 +21,7 @@ export const fetch_reviews = () => {
         dispatch({ type: actionTypes.FETCH_SUCCESS, payload: reviews });
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.message);
         dispatch({ type: actionTypes.FETCH_FAIL });
       });
   };

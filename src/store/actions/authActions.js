@@ -50,6 +50,7 @@ export const auth_login = (email, password) => {
         //console.log(res.user);
         dispatch(toggle_modal());
         dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: res.user.uid });
+
         dispatch({ type: actionTypes.ERROR_CLEAR });
       })
       .catch(err => {

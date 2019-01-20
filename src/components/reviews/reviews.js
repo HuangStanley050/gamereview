@@ -10,8 +10,12 @@ import {
 } from "react-accessible-accordion";
 
 class Reviews extends Component {
-  componentDidMount() {
-    this.props.get_reviews();
+  componentDidUpdate(prevProps) {
+    if (this.props.auth.isLogin !== prevProps.auth.isLogin) {
+      console.log("current props: ", this.props.auth.isLogin);
+      console.log("previoius props: ", prevProps.auth.isLogin);
+      this.props.get_reviews();
+    }
   }
   render() {
     let reviews;
