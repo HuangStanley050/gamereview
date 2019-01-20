@@ -48,7 +48,7 @@ class Reviews extends Component {
         {this.props.auth.isLogin ? (
           reviews
         ) : (
-          <h1 className="center-align">You have not login</h1>
+          <h1 className="center-align">Login to read game reviews</h1>
         )}
       </div>
     );
