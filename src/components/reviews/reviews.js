@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetch_reviews } from "../../store/actions/fetchActions";
-//import { compose } from "redux";
-//import { firestoreConnect } from "react-redux-firebase";
+
 import "react-accessible-accordion/dist/fancy-example.css";
 import {
   Accordion,
@@ -16,6 +15,9 @@ class Reviews extends Component {
     if (this.props.auth.isLogin !== prevProps.auth.isLogin) {
       console.log("current props: ", this.props.auth.isLogin);
       console.log("previoius props: ", prevProps.auth.isLogin);
+      this.props.get_reviews();
+    }
+    if (this.props.reviews.fetchAgain !== prevProps.reviews.fetchAgain) {
       this.props.get_reviews();
     }
   }
