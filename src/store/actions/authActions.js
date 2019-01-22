@@ -4,22 +4,31 @@ import * as actionTypes from "./actionTypes";
 import { toggle_modal } from "./modalActions";
 
 const auth = fb.auth();
+const db = fb.firestore();
 
-export const auth_create_user = (email, password) => {
+export const auth_create_user = (email, password, bio) => {
   return dispatch => {
     dispatch({ type: actionTypes.CREATE_USER_START });
     auth
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
+        return db
+          .collection("users")
+          .doc(res.user.uid)
+          .set({
+            bio: bio
+          });
+      })
+      .then(() => {
         dispatch(toggle_modal());
-        //dispatch({type:actionTypes.CREATE_USER_SUCCESS,payload:res.user.})
+
         dispatch({ type: actionTypes.CREATE_USER_SUCCESS });
+        dispatch({ type: actionTypes.ERROR_CLEAR });
       })
       .catch(err => {
         console.log(err.message);
         dispatch({ type: actionTypes.ERROR, payload: err.message });
         dispatch({ type: actionTypes.CREATE_USER_FAIL });
-        dispatch({ type: actionTypes.ERROR_CLEAR });
       });
   };
 };
@@ -46,9 +55,16 @@ export const auth_login = (email, password) => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(res => {
-        console.log(res.user.email);
-        dispatch(toggle_modal());
+        //console.log(res.user);
         dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: res.user.email });
+        dispatch(toggle_modal());
+        return db
+          .collection("users")
+          .doc(res.user.uid)
+          .get();
+      })
+      .then(doc => {
+        dispatch({ type: actionTypes.LOGIN_EXTRA, payload: doc.data().bio });
         dispatch({ type: actionTypes.ERROR_CLEAR });
       })
       .catch(err => {

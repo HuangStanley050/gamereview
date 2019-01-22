@@ -10,11 +10,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         error: action.payload
       };
+    case actionTypes.TOGGLE_MODAL:
     case actionTypes.ERROR_CLEAR:
       return {
         ...state,
         error: ""
       };
+
     default:
       return state;
   }

@@ -50,6 +50,11 @@ const reducer = (state = initialState, action) => {
         isRegistered: false,
         accountInfo: { ...state.accountInfo, email: "" }
       };
+    case actionTypes.LOGIN_EXTRA:
+      return {
+        ...state,
+        accountInfo: { ...state.accountInfo, bio: action.payload }
+      };
     default:
       return state;
   }

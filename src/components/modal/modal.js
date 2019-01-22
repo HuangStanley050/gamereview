@@ -10,7 +10,8 @@ class Modal extends Component {
     email: "",
     password: "",
     title: "",
-    content: ""
+    content: "",
+    bio: ""
   };
 
   handleClick = e => {
@@ -36,8 +37,12 @@ class Modal extends Component {
         this.setState({ email: "", password: "" });
         break;
       case "signup-form":
-        this.props.create(this.state.email, this.state.password);
-        this.setState({ email: "", password: "" });
+        this.props.create(
+          this.state.email,
+          this.state.password,
+          this.state.bio
+        );
+        this.setState({ email: "", password: "", bio: "" });
         break;
       case "create-form":
         //alert("title is" + " " + this.state.title);
@@ -111,7 +116,9 @@ class Modal extends Component {
               </span>
             </h3>
           </div>
-          <div className="account-extras" />
+          <div className="account-extras">
+            <h3>{this.props.accountInfo.bio}</h3>
+          </div>
         </div>
       </div>
     );
@@ -188,6 +195,16 @@ class Modal extends Component {
               />
               <label htmlFor="signup-password">Choose password</label>
             </div>
+            <div className="input-field">
+              <input
+                value={this.state.bio}
+                name="bio"
+                type="text"
+                id="bio"
+                onChange={this.handleInput}
+              />
+              <label htmlFor="bio">One Line Bio</label>
+            </div>
             <button
               id="submit-button"
               type="submit"
@@ -239,7 +256,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     toggle: () => dispatch(toggle_modal()),
-    create: (email, password) => dispatch(auth_create_user(email, password)),
+    create: (email, password, bio) =>
+      dispatch(auth_create_user(email, password, bio)),
     login: (email, password) => dispatch(auth_login(email, password)),
     create_review: (title, content) => dispatch(createReview(title, content))
   };
