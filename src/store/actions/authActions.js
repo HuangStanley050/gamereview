@@ -55,16 +55,19 @@ export const auth_login = (email, password) => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(res => {
-        //console.log(res.user);
-        dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: res.user.email });
         dispatch(toggle_modal());
-        return db
+        let userInfo = db
           .collection("users")
           .doc(res.user.uid)
           .get();
+        return Promise.all([userInfo, res]);
       })
-      .then(doc => {
-        dispatch({ type: actionTypes.LOGIN_EXTRA, payload: doc.data().bio });
+      .then(([userInfo, res]) => {
+        dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: res.user.email });
+        dispatch({
+          type: actionTypes.LOGIN_EXTRA,
+          payload: userInfo.data().bio
+        });
         dispatch({ type: actionTypes.ERROR_CLEAR });
       })
       .catch(err => {
