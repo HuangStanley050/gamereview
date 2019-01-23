@@ -13,8 +13,8 @@ import {
 class Reviews extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.auth.isLogin !== prevProps.auth.isLogin) {
-      console.log("current props: ", this.props.auth.isLogin);
-      console.log("previoius props: ", prevProps.auth.isLogin);
+      // console.log("current props: ", this.props.auth.isLogin);
+      // console.log("previoius props: ", prevProps.auth.isLogin);
       this.props.get_reviews();
     }
     if (this.props.reviews.fetchAgain !== prevProps.reviews.fetchAgain) {

@@ -5,9 +5,10 @@ import { toggle_modal } from "./modalActions";
 
 const auth = fb.auth();
 const db = fb.firestore();
+const functions = fb.functions();
 
 export const auth_create_user = (email, password, bio) => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch({ type: actionTypes.CREATE_USER_START });
     auth
       .createUserWithEmailAndPassword(email, password)
@@ -23,7 +24,10 @@ export const auth_create_user = (email, password, bio) => {
         dispatch(toggle_modal());
 
         dispatch({ type: actionTypes.CREATE_USER_SUCCESS });
-        dispatch({ type: actionTypes.ERROR_CLEAR });
+        // const error = getState().error.error;
+        // if (error) {
+        //   dispatch({ type: actionTypes.ERROR_CLEAR });
+        // }
       })
       .catch(err => {
         console.log(err.message);
@@ -50,7 +54,7 @@ export const auth_logout = () => {
 };
 
 export const auth_login = (email, password) => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch({ type: actionTypes.LOGIN_START });
     auth
       .signInWithEmailAndPassword(email, password)
@@ -68,12 +72,28 @@ export const auth_login = (email, password) => {
           type: actionTypes.LOGIN_EXTRA,
           payload: userInfo.data().bio
         });
-        dispatch({ type: actionTypes.ERROR_CLEAR });
+        // const error = getState().error.error;
+        // //console.log(error);
+        // if (error) {
+        //   dispatch({ type: actionTypes.ERROR_CLEAR });
+        // }
       })
       .catch(err => {
         dispatch({ type: actionTypes.LOGIN_FAIL });
         dispatch({ type: actionTypes.ERROR, payload: err.message });
         console.log(err.message);
       });
+  };
+};
+
+export const create_admin = email => {
+  return dispatch => {
+    const addAdminRole = functions.httpsCallable("addAdminRole");
+    dispatch({ type: actionTypes.CREATE_ADMIN_START });
+    addAdminRole({
+      email: email
+    })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   };
 };

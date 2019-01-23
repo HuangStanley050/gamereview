@@ -16,6 +16,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.CREATE_USER_START:
     case actionTypes.LOGOUT_START:
     case actionTypes.LOGIN_START:
+    case actionTypes.CREATE_ADMIN_START:
       return {
         ...state,
         loading: true
