@@ -13,7 +13,7 @@ class App extends Component {
       <div className="App">
         <NavBar />
         <Modal />
-        <Admin />
+        {this.props.isAdmin ? <Admin /> : null}
         <Reviews />
       </div>
     );
@@ -22,7 +22,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    loginStatus: state.auth
+    loginStatus: state.auth,
+    isAdmin: state.auth.accountInfo.admin
   };
 };
 

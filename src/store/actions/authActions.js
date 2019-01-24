@@ -60,23 +60,22 @@ export const auth_login = (email, password) => {
       .signInWithEmailAndPassword(email, password)
       .then(res => {
         dispatch(toggle_modal());
+        let token = res.user.getIdTokenResult(); //to test if the login user is admin
         let userInfo = db
           .collection("users")
           .doc(res.user.uid)
           .get();
-        return Promise.all([userInfo, res]);
+        return Promise.all([userInfo, res, token]);
       })
-      .then(([userInfo, res]) => {
+      .then(([userInfo, res, token]) => {
+        if (token.claims.admin) {
+          dispatch({ type: actionTypes.IS_ADMIN });
+        }
         dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: res.user.email });
         dispatch({
           type: actionTypes.LOGIN_EXTRA,
           payload: userInfo.data().bio
         });
-        // const error = getState().error.error;
-        // //console.log(error);
-        // if (error) {
-        //   dispatch({ type: actionTypes.ERROR_CLEAR });
-        // }
       })
       .catch(err => {
         dispatch({ type: actionTypes.LOGIN_FAIL });

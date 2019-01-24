@@ -4,9 +4,10 @@ const initialState = {
   isRegistered: false,
   isLogin: false,
   accountInfo: {
-    email: ""
+    email: "",
+    admin: false
   },
-  token: null,
+
   loading: false
 };
 
@@ -41,7 +42,11 @@ const reducer = (state = initialState, action) => {
         loading: false,
         isRegistered: true
       };
-
+    case actionTypes.IS_ADMIN:
+      return {
+        ...state,
+        accountInfo: { ...state.accountInfo, admin: true }
+      };
     case actionTypes.LOGOUT_SUCCESS:
       return {
         ...state,

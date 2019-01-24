@@ -34,7 +34,7 @@ const NavBar = props => {
               </button>
             </li>
           ) : null}
-          {props.auth.isLogin ? (
+          {props.auth.accountInfo.admin ? (
             <li className="logged-in">
               <button
                 onClick={() => props.toggle("create")}
