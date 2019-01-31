@@ -5,7 +5,8 @@ const initialState = {
   isLogin: false,
   accountInfo: {
     email: "",
-    admin: false
+    admin: false,
+    bio: ""
   },
 
   loading: false
@@ -51,10 +52,10 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLogin: false,
-        token: null,
+
         loading: false,
         isRegistered: false,
-        accountInfo: { ...state.accountInfo, email: "" }
+        accountInfo: { ...state.accountInfo, email: "", admin: false, bio: "" }
       };
     case actionTypes.LOGIN_EXTRA:
       return {
