@@ -1,3 +1,3 @@
 ## Live
 
-(https://hardcore-neumann-7294e0.netlify.com/)[Live]
+[Live Site](https://hardcore-neumann-7294e0.netlify.com/)
