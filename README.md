@@ -1,3 +1,5 @@
 ## Live
 
-[Live Site](https://hardcore-neumann-7294e0.netlify.com/)
+[Live Site](https://games-review.netlify.com)
+**username** batman@dc.com
+**password** test@test1234
